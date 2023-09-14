@@ -19,11 +19,11 @@ const (
 )
 
 func ServiceRegister(req domain.ServiceRegisterReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, RegisterUrl, req)
+	return callAppConfigService(http.MethodPost, RegisterUrl, "application/json", req)
 }
 
 func SetConfig(req domain.ConfigSetReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, SetConfigUrl, req)
+	return callAppConfigService(http.MethodPost, SetConfigUrl, "application/json", req)
 }
 
 func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
@@ -33,11 +33,11 @@ func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
 	formData.Set("Path", req.Path)
 	formData.Set("Fields", req.Fields)
 
-	return callAppConfigService(http.MethodGet, GetConfigUrl+"?"+formData.Encode(), req)
+	return callAppConfigService(http.MethodGet, GetConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
 }
 
 // 调用SDK sevice
-func callAppConfigService(method string, url string, req any) (resp domain.CallResp, err error) {
+func callAppConfigService(method string, url string, contentType string, req any) (resp domain.CallResp, err error) {
 	// 序列化参数
 	bData, _ := json.Marshal(req)
 
@@ -46,7 +46,7 @@ func callAppConfigService(method string, url string, req any) (resp domain.CallR
 	if err != nil {
 		return
 	}
-	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Content-Type", contentType)
 
 	var client = http.Client{}
 
