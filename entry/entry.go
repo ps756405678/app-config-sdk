@@ -10,6 +10,7 @@ import (
 	"github.com/ps756405678/app-config-sdk/domain"
 )
 
+// TODO: 临时做法
 const (
 	BaseUrl      = "http://192.168.0.60:8086/api"
 	RegisterUrl  = BaseUrl + "/service/register"
@@ -41,11 +42,11 @@ func callAppConfigService(method string, url string, req any) (resp domain.CallR
 	bData, _ := json.Marshal(req)
 
 	// 调用sdk service
-	// TODO:此处调用的链接为临时解决方案，后续会给出serverless的sdk，使用serverless的sdk来获取此链接
 	request, err := http.NewRequest(method, url, bytes.NewReader(bData))
 	if err != nil {
 		return
 	}
+	request.Header.Add("Content-Type", "application/json")
 
 	var client = http.Client{}
 
