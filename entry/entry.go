@@ -12,10 +12,11 @@ import (
 
 // TODO: 临时做法
 const (
-	BaseUrl      = "http://192.168.0.60:8086/api"
-	RegisterUrl  = BaseUrl + "/service/register"
-	SetConfigUrl = BaseUrl + "/setConfig"
-	GetConfigUrl = BaseUrl + "/getConfig"
+	BaseUrl         = "http://192.168.0.60/appconfig/api"
+	RegisterUrl     = BaseUrl + "/service/register"
+	SetConfigUrl    = BaseUrl + "/setConfig"
+	GetConfigUrl    = BaseUrl + "/getConfig"
+	DeleteConfigUrl = BaseUrl + "/deleteConfig"
 )
 
 func ServiceRegister(req domain.ServiceRegisterReq) (resp domain.CallResp, err error) {
@@ -34,6 +35,10 @@ func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
 	formData.Set("Fields", req.Fields)
 
 	return callAppConfigService(http.MethodGet, GetConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
+}
+
+func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp, err error) {
+	return callAppConfigService(http.MethodPost, DeleteConfigUrl, "application/json", req)
 }
 
 // 调用SDK sevice
