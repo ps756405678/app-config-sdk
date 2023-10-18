@@ -11,7 +11,7 @@ import (
 )
 
 // TODO: 临时做法
-const (
+var (
 	Gateway         = ""
 	BaseUrl         = Gateway + "/appconfig/api"
 	RegisterUrl     = BaseUrl + "/service/register"
