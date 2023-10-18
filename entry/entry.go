@@ -50,6 +50,7 @@ func callAppConfigService(method string, url string, contentType string, req any
 	// 调用sdk service
 	request, err := http.NewRequest(method, url, bytes.NewReader(bData))
 	if err != nil {
+		err = errors.New("调用Appconfig远程服务出错")
 		return
 	}
 	request.Header.Add("Content-Type", contentType)
