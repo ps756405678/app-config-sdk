@@ -13,19 +13,19 @@ import (
 // TODO: 临时做法
 var (
 	Gateway         = ""
-	BaseUrl         = Gateway + "/appconfig/api"
-	RegisterUrl     = BaseUrl + "/service/register"
-	SetConfigUrl    = BaseUrl + "/setConfig"
-	GetConfigUrl    = BaseUrl + "/getConfig"
-	DeleteConfigUrl = BaseUrl + "/deleteConfig"
+	baseUrl         = Gateway + "/appconfig/api"
+	registerUrl     = baseUrl + "/service/register"
+	setConfigUrl    = baseUrl + "/setConfig"
+	getConfigUrl    = baseUrl + "/getConfig"
+	deleteConfigUrl = baseUrl + "/deleteConfig"
 )
 
 func ServiceRegister(req domain.ServiceRegisterReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, RegisterUrl, "application/json", req)
+	return callAppConfigService(http.MethodPost, registerUrl, "application/json", req)
 }
 
 func SetConfig(req domain.ConfigSetReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, SetConfigUrl, "application/json", req)
+	return callAppConfigService(http.MethodPost, setConfigUrl, "application/json", req)
 }
 
 func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
@@ -35,11 +35,11 @@ func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
 	formData.Set("Path", req.Path)
 	formData.Set("Fields", req.Fields)
 
-	return callAppConfigService(http.MethodGet, GetConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
+	return callAppConfigService(http.MethodGet, getConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
 }
 
 func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, DeleteConfigUrl, "application/json", req)
+	return callAppConfigService(http.MethodPost, deleteConfigUrl, "application/json", req)
 }
 
 // 调用SDK sevice
