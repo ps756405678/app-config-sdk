@@ -13,7 +13,7 @@ import (
 // TODO: 临时做法
 const (
 	Gateway         = ""
-	BaseUrl         = "/appconfig/api"
+	BaseUrl         = Gateway + "/appconfig/api"
 	RegisterUrl     = BaseUrl + "/service/register"
 	SetConfigUrl    = BaseUrl + "/setConfig"
 	GetConfigUrl    = BaseUrl + "/getConfig"
