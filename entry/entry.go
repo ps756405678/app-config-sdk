@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"net/url"
 
@@ -62,8 +63,7 @@ func callAppConfigService(method string, url string, contentType string, req any
 		return
 	}
 
-	var buff = make([]byte, httpResp.ContentLength)
-	httpResp.Body.Read(buff)
+	buff, _ := io.ReadAll(httpResp.Body)
 
 	// 反序列化结果
 	err = json.Unmarshal(buff, &resp)
