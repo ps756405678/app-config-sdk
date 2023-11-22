@@ -22,6 +22,7 @@ type ServiceRegisterReq struct {
 type ConfigSetReq struct {
 	AppId string      `json:"AppId" form:"AppId" validate:"required" message:"AppId required"`
 	Data  interface{} `json:"Data" form:"Data" validate:"required" message:"Data required"`
+	Path  string      `json:"Path" form:"Path"`
 	Type  string      `json:"Type" form:"Type" validate:"required|enum:APP_CURRENT_OPT,APP_SERVICE,APP_CURRENT_CONFIG,APP_INFRA" message:"required:Type required|enum:Type invalid"`
 }
 
