@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 
@@ -45,6 +46,9 @@ func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp, err error) {
 
 // 调用SDK sevice
 func callAppConfigService(method string, url string, contentType string, req any) (resp domain.CallResp, err error) {
+
+	log.Println("app config sdk call service:", url)
+
 	// 序列化参数
 	bData, _ := json.Marshal(req)
 
@@ -70,6 +74,7 @@ func callAppConfigService(method string, url string, contentType string, req any
 	if err != nil {
 		return
 	}
+	log.Println("app config sdk call service resp:", string(buff))
 
 	if resp.ErrCode != 0 {
 		err = errors.New(resp.Msg)
