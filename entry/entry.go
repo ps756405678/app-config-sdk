@@ -41,8 +41,8 @@ func GetConfig[T any](req domain.ConfigGetReq) (resp domain.CallResp[T], err err
 	return callAppConfigService[T](http.MethodGet, Gateway+baseUrl+getConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
 }
 
-func GetConfigList[T any](req domain.ConfigListReq) (resp domain.CallResp[[]T], err error) {
-	return callAppConfigService[[]T](http.MethodPost, Gateway+baseUrl+getListUrl, "application/json", req)
+func GetConfigList[T any](req domain.ConfigListReq) (resp domain.CallResp[domain.GetListResp[T]], err error) {
+	return callAppConfigService[domain.GetListResp[T]](http.MethodPost, Gateway+baseUrl+getListUrl, "application/json", req)
 }
 
 func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp[any], err error) {

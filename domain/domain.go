@@ -43,3 +43,8 @@ type CallResp[T any] struct {
 	Msg     string `json:"msg"`
 	Data    T      `json:"data"`
 }
+
+type GetListResp[T any] struct {
+	List  []T   `json:"list"`
+	Total int64 `json:"total"`
+}
