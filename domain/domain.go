@@ -38,8 +38,8 @@ type ConfigSetReq struct {
 	Type  string      `json:"Type" form:"Type" validate:"required|enum:APP_CURRENT_OPT,APP_SERVICE,APP_CURRENT_CONFIG,APP_INFRA" message:"required:Type required|enum:Type invalid"`
 }
 
-type CallResp struct {
+type CallResp[T any] struct {
 	ErrCode int    `json:"errcode"`
 	Msg     string `json:"msg"`
-	Data    any    `json:"data"`
+	Data    T      `json:"data"`
 }

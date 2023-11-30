@@ -23,35 +23,35 @@ var (
 	deleteConfigUrl = "/deleteConfig"
 )
 
-func ServiceRegister(req domain.ServiceRegisterReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, Gateway+baseUrl+registerUrl, "application/json", req)
+func ServiceRegister(req domain.ServiceRegisterReq) (resp domain.CallResp[any], err error) {
+	return callAppConfigService[any](http.MethodPost, Gateway+baseUrl+registerUrl, "application/json", req)
 }
 
-func SetConfig(req domain.ConfigSetReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, Gateway+baseUrl+setConfigUrl, "application/json", req)
+func SetConfig(req domain.ConfigSetReq) (resp domain.CallResp[any], err error) {
+	return callAppConfigService[any](http.MethodPost, Gateway+baseUrl+setConfigUrl, "application/json", req)
 }
 
-func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
+func GetConfig[T any](req domain.ConfigGetReq) (resp domain.CallResp[T], err error) {
 	formData := url.Values{}
 	formData.Set("AppId", req.AppId)
 	formData.Set("Type", req.Type)
 	formData.Set("Path", req.Path)
 	formData.Set("Fields", req.Fields)
 
-	return callAppConfigService(http.MethodGet, Gateway+baseUrl+getConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
+	return callAppConfigService[T](http.MethodGet, Gateway+baseUrl+getConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
 }
 
-func GetConfigList(req domain.ConfigListReq) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodGet, Gateway+baseUrl+getListUrl, "application/json", req)
+func GetConfigList[T any](req domain.ConfigListReq) (resp domain.CallResp[[]T], err error) {
+	return callAppConfigService[[]T](http.MethodGet, Gateway+baseUrl+getListUrl, "application/json", req)
 
 }
 
-func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp, err error) {
-	return callAppConfigService(http.MethodPost, Gateway+baseUrl+deleteConfigUrl, "application/json", req)
+func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp[any], err error) {
+	return callAppConfigService[any](http.MethodPost, Gateway+baseUrl+deleteConfigUrl, "application/json", req)
 }
 
 // 调用SDK sevice
-func callAppConfigService(method string, url string, contentType string, req any) (resp domain.CallResp, err error) {
+func callAppConfigService[T any](method string, url string, contentType string, req any) (resp domain.CallResp[T], err error) {
 
 	log.Println("app config sdk call service:", url)
 
