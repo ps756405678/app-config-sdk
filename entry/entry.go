@@ -74,13 +74,13 @@ func callAppConfigService[T any](method string, url string, contentType string, 
 	}
 
 	buff, _ := io.ReadAll(httpResp.Body)
+	log.Println("app config sdk call service resp:", string(buff))
 
 	// 反序列化结果
 	err = json.Unmarshal(buff, &resp)
 	if err != nil {
 		return
 	}
-	log.Println("app config sdk call service resp:", string(buff))
 
 	if resp.ErrCode != 0 {
 		err = errors.New(resp.Msg)
