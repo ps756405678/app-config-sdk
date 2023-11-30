@@ -42,8 +42,7 @@ func GetConfig[T any](req domain.ConfigGetReq) (resp domain.CallResp[T], err err
 }
 
 func GetConfigList[T any](req domain.ConfigListReq) (resp domain.CallResp[[]T], err error) {
-	return callAppConfigService[[]T](http.MethodGet, Gateway+baseUrl+getListUrl, "application/json", req)
-
+	return callAppConfigService[[]T](http.MethodPost, Gateway+baseUrl+getListUrl, "application/json", req)
 }
 
 func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp[any], err error) {
