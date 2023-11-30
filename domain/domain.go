@@ -13,6 +13,18 @@ type ConfigGetReq struct {
 	Path   string `json:"Path" form:"Path"`
 }
 
+type SortValue struct {
+	Sort  string `json:"sort" form:"sort"`
+	Field string `json:"field" from:"field"`
+}
+type ConfigListReq struct {
+	AppId    string         `json:"AppId" form:"AppId" validate:"required" message:"AppId 必须"`
+	Fileter  map[string]any `json:"Fileter" form:"Fileter"`
+	Sort     []SortValue    `json:"Sort" form:"Sort"`
+	Page     int64          `json:"Page" form:"Page" default:"1"`
+	PageSize int64          `json:"PageSize" form:"PageSize" default:"20"`
+}
+
 type ServiceRegisterReq struct {
 	AppId       string                 `json:"AppId" form:"AppId" validate:"required" message:"AppId required"`
 	ServiceName string                 `json:"ServiceName" form:"ServiceName" validate:"required" message:"ServiceName required"`

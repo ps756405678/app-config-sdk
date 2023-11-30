@@ -19,6 +19,7 @@ var (
 	registerUrl     = "/service/register"
 	setConfigUrl    = "/setConfig"
 	getConfigUrl    = "/getConfig"
+	getListUrl      = "/getConfigList"
 	deleteConfigUrl = "/deleteConfig"
 )
 
@@ -38,6 +39,11 @@ func GetConfig(req domain.ConfigGetReq) (resp domain.CallResp, err error) {
 	formData.Set("Fields", req.Fields)
 
 	return callAppConfigService(http.MethodGet, Gateway+baseUrl+getConfigUrl+"?"+formData.Encode(), "application/x-www-form-urlencoded", req)
+}
+
+func GetConfigList(req domain.ConfigListReq) (resp domain.CallResp, err error) {
+	return callAppConfigService(http.MethodGet, Gateway+baseUrl+getListUrl, "application/json", req)
+
 }
 
 func DeleteConfig(req domain.DeleteKeyForm) (resp domain.CallResp, err error) {
